@@ -1,4 +1,4 @@
-# mouse-scartrace
+# Mouse scartrace
 Here you will find all information and code for processing of mouse scartrace data. This includes transcriptome and scar analysis.
 
 # Usage
@@ -36,3 +36,6 @@ This jupyter notebook takes the count table as input and processes raw counts in
 
 ### data
 All computed dataframes can be found in the folder scars_dataframes. All computed plots can be found in the folder scars_plots.
+
+
+## Transcriptome pipeline
