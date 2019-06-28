@@ -6,6 +6,7 @@ Here you will find all information and code for processing of mouse scartrace da
 The scar pipeline consists of two parts: 
 1. scars_pipeline.sh - this processes raw fastq files to a count table. 
 2. 20190627_ScarsPipeline_VAN2988.ipynb - this takes the count table as input and transforms raw counts to allele counts, to eventually cluster cells based on their scar pattern.
+You can find these scripts in the folder scar-analysis.
 
 ### 1. scars_pipeline.sh
 This pipeline runs on modules from the [SingleCellMultiOmics package](https://github.com/BuysDB/SingleCellMultiOmics). You need to download this first into your environment to be able to use the scripts. 
