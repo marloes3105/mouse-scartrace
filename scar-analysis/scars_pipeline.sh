@@ -64,7 +64,7 @@ do
   printf "\n[+] tagging: $bamfiles\n"
   indir=${bamfiles%mapped/BWAmapped_mm95_sorted.*}
   destdir="${indir}tagged"
-  addDigestTags.py --ftag --scar --dedup -alleles $allele_reference -o $destdir ${bamfiles}
+  universalBamTagger.py --ftag --scar --dedup -alleles $allele_reference -o $destdir ${bamfiles}
 #  rm $bamfiles;rm $bamfiles.bai
 #  rm ${indir}mapped/*.bam ##delete mapped bam
 done
