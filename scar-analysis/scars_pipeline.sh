@@ -71,17 +71,29 @@ done
 
 
 ### 5. Make count table (with allele specificity for the IgH locus)
-# make counts table, expects fastq directory to end in *_S* for sample/RPI index number
+# make counts table, expects fastq directory to start with library name for annotation of count table
 # use --showtags to show all available tags in bam file
 for bamfiles in $(find $PWD -path '*tagged/BWAmapped_mm95_sorted.bam')
 do
-  printf "\n[+] making count table: $bamfiles\n"
+  printf "\n[+] making no dedup count table: $bamfiles\n"
   indir=${bamfiles%tagged*}
   destdir="${indir}countTable"
   sampledir=${bamfiles%/tagged/BWAmapped*}
-  sample=${sampledir##*_S}
-  outfile="$destdir/S${sample}_countTable.csv"
+  sample=${sampledir##*demultiplexed/}
+  outfile="$destdir/${sample}_countTable_nodedup.csv"
   mkdir -p "$destdir"
+  bamToCountTable.py -o $outfile -joinedFeatureTags chrom,DA,DS,SD -sampleTags SM ${bamfiles}
+done
+
+### 5b. Make dedup count table (optional)
+for bamfiles in $(find $PWD -path '*tagged/*.dedup.bam')
+do
+  printf "\n[+] making dedup count table: $bamfiles\n"
+  indir=${bamfiles%tagged*}
+  destdir="${indir}countTable"
+  sampledir=${bamfiles%/tagged/BWAmapped*}
+  sample=${sampledir##*demultiplexed/}
+  outfile="$destdir/${sample}_countTable_dedup.csv"
   bamToCountTable.py -o $outfile -joinedFeatureTags chrom,DA,DS,SD -sampleTags SM ${bamfiles}
 done
 
