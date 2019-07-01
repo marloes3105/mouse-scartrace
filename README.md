@@ -10,9 +10,10 @@ The scar pipeline consists of two parts:
 You can find these scripts in the folder scar-analysis.
 
 ### 1. scars_pipeline.sh
-This pipeline runs on modules from the [SingleCellMultiOmics package](https://github.com/BuysDB/SingleCellMultiOmics). You need to download this first into your environment to be able to use the scripts. 
+This pipeline runs on modules from the [SingleCellMultiOmics package](https://github.com/BuysDB/SingleCellMultiOmics). You need to download this first into your environment to be able to use the scripts. The script expects you to organise your fastqs in such a way that fastq files of every separate library are in a separate folder. To execute the script, simply move to the folder where you stored all folders with fastqs, activate your python or conda environment and execute the script.  
+
 Step-by-step overview of the pipeline:
-1. Raw fastq files are demultiplexed using demux.py from the SingleCellMultiOmics package.
+1. Raw fastq files are demultiplexed using demux.py from the SingleCellMultiOmics package. This will create a raw_demultiplexed folder with folders for every separate library, storing the demultiplexed and rejected reads for R1 and R2. The script will now move into this raw_demultiplexed folder to execute the next steps.
 2. Demultiplexed reads are trimmed using trim_galore/cutadapt.
 3. Reads are mapped to the **whole unmasked** genome using bwa mem.
 4. The mapped bam file is tagged using addDigestTags.py from the SingleCellMultiOmics package. This places all information that was placed in the readname for alignment back into the bamfile as tags. The option '--scar' adds a tag describing the misalignment (scar) to the read, or states 'WT' when the read maps perfectly. This simultaneously also gives a mean read quality based on the average of phred scores for each base. The option '-alleles' requires a .vcf input file and adds allelic information in a tag. The following tags are added with this script:
