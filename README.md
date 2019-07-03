@@ -22,8 +22,8 @@ Step-by-step overview of the pipeline:
 - 'DS' - stores read start position (site)
 - 'SQ' - stores mean base quality
 5. The bam file is filtered based on the mean base quality ('SQ') tag - only reads with a mean base quality of >0.98 will be stored and used for generating the count table. Everything below this threshold is considered to be noise.
-6. Two count tables are made for the **unfiltered** bam:
-a) The mapped and tagged bam file is converted to a count table using bamToCountTable.py from the SingleCellMultiOmics package. It takes '-joinedFeatureTags' as columns and '-sampleTags' as rows for this count table. For columns, we use the 'SM' tag (samplename). For rows, we use the following tags: 'chrom' (chromosome), 'DA' (allele), 'DS' (site), 'SD' (scar). 
+6. Two count tables are made for the **unfiltered** bam: <p>
+a) The mapped and tagged bam file is converted to a count table using bamToCountTable.py from the SingleCellMultiOmics package. It takes '-joinedFeatureTags' as columns and '-sampleTags' as rows for this count table. For columns, we use the 'SM' tag (samplename). For rows, we use the following tags: 'chrom' (chromosome), 'DA' (allele), 'DS' (site), 'SD' (scar). <p>
 b) The second count table that is generated stores cells ('SM') as rows and the mean base quality score ('SQ') as columns. This count table can be used to check the SQ values for all reads in the unfiltered bam, and can be used to set a sensible threshold for filtering or to check if the threshold used makes sense.
 7. Two count tables are made for the **filtered** bam - these are the same as specified in 6a and 6b. 
 8. Optional: A count table of the deduplicated bam file is made, the same way as specified in 6a.
