@@ -21,7 +21,12 @@ Step-by-step overview of the pipeline:
 - 'SD' - stores scar information
 - 'DS' - stores read start position (site)
 - 'SQ' - stores mean base quality
-5. The mapped and tagged bam file is converted to a count table using bamToCountTable.py from the SingleCellMultiOmics package. It takes '-joinedFeatureTags' as columns and '-sampleTags' as rows for this count table. For columns, we use the 'SM' tag (samplename). For rows, we use the following tags: 'chrom' (chromosome), 'DA' (allele), 'DS' (site), 'SD' (scar). 
+5. The bam file is filtered based on the mean base quality ('SQ') tag - only reads with a mean base quality of >0.98 will be stored and used for generating the count table. Everything below this threshold is considered to be noise.
+6. Two count tables are made for the **unfiltered** bam:
+a) The mapped and tagged bam file is converted to a count table using bamToCountTable.py from the SingleCellMultiOmics package. It takes '-joinedFeatureTags' as columns and '-sampleTags' as rows for this count table. For columns, we use the 'SM' tag (samplename). For rows, we use the following tags: 'chrom' (chromosome), 'DA' (allele), 'DS' (site), 'SD' (scar). 
+b) The second count table that is generated stores cells ('SM') as rows and the mean base quality score ('SQ') as columns. This count table can be used to check the SQ values for all reads in the unfiltered bam, and can be used to set a sensible threshold for filtering or to check if the threshold used makes sense.
+7. Two count tables are made for the **filtered** bam - these are the same as specified in 6a and 6b. 
+8. Optional: A count table of the deduplicated bam file is made, the same way as specified in 6a.
 
 ### 2. 20190627_ScarsPipeline_VAN2988.ipynb
 This jupyter notebook takes the count table as input and processes raw counts into percentages and after that in allele counts. Cells are filtered based on their amount of counts, and cells that pass the threshold will be used for clustering using [IWSS](https://github.com/BuysDB/IWSS). All steps are annotated in the notebook itself, but if we go over them in short, the notebook does the following:
