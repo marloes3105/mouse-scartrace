@@ -124,17 +124,4 @@ do
   bamToCountTable.py -o $outfileSQ -joinedFeatureTags SM -sampleTags SQ ${bamfiles}
 done
 
-### 8. Make dedup count table (optional)
-######### Unfiltered!! #############
-for bamfiles in $(find $PWD -path '*tagged/*.dedup.bam')
-do
-  printf "\n[+] making dedup count table of unfiltered bam: $bamfiles\n"
-  indir=${bamfiles%tagged*}
-  destdir="${indir}countTable"
-  sampledir=${bamfiles%/tagged/BWAmapped*}
-  sample=${sampledir##*demultiplexed/}
-  outfile="$destdir/${sample}_countTable_dedup.csv"
-  bamToCountTable.py -o $outfile -joinedFeatureTags chrom,DA,DS,SD -sampleTags SM ${bamfiles}
-done
-
 printf "\n[+] Scar pipeline complete at: $(date)\n"
