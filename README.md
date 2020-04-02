@@ -5,3 +5,5 @@ Processing of scar libraries from fastq to count tables is now done using the [S
 Processing of transcriptome libraries from fastq to count tables is now done using the [Transcriptome data processing workflow](https://github.com/BuysDB/SingleCellMultiOmics/wiki/Transcriptome-data-processing).
 
 All jupyter notebooks for downstream analysis can be found in this repository in the 'transcriptome' and 'scars' folders. 
+
+An explanation on how to use the notebooks in this repository can be found in the wiki.
